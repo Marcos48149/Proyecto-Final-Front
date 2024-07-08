@@ -1,5 +1,6 @@
 "use client";
 import { useSport } from "@/context/SportContext";
+import { useUser } from "@/context/UserContext";
 import { ISede } from "@/interface/ISedes";
 import { IUserSession } from "@/interface/context";
 import Link from "next/link";
@@ -7,16 +8,7 @@ import { useEffect, useState } from "react";
 
 export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
   const { sport } = useSport();
-  const [userData, setUserData] = useState<IUserSession | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      const userData = localStorage.getItem("userSession");
-      if (userData) {
-        setUserData(JSON.parse(userData));
-      }
-    }
-  }, [setUserData]);
+  const { userData } = useUser();
 
   const filteredSedes = sedes?.filter(
     (sede: ISede) => sede?.user?.id === userData?.userDb.id
@@ -40,9 +32,9 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
                 : "hover:bg-main"
             } hover:text-white ease-in-out duration-300 p-4 space-x-4 space-y-6`}
           >
-            <h2 className="font-Marko font-bold text-3xl">{sede.name}</h2>
-            <p>Dirección: {sede.location}</p>
-            <p>Descripción: {sede.description}</p>
+            <h2 className="font-Marko font-bold text-3xl">{sede?.name}</h2>
+            <p>Dirección: {sede?.location}</p>
+            <p>Descripción: {sede?.description}</p>
           </div>
         ))}
       </div>
@@ -67,7 +59,7 @@ export const SedesAdmin = ({ sedes }: { sedes: ISede[] }) => {
               ? "hover:bg-orange-500 border-orange-500 text-orange-500"
               : "hover:bg-main border-main text-main"
           }  md:text-lg p-3 rounded-lg border border-x-2 border-y-2  font-semibold  hover:text-white duration-200 ease-in-out`}
-          href={`/FormCancha/${userData?.userDb.id}`}
+          href={`/FormCancha/${userData?.userDb?.id}`}
         >
           Crear Cancha
         </Link>
