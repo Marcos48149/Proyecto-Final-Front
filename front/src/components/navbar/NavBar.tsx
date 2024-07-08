@@ -58,7 +58,10 @@ export default function NavBar() {
               </Link>
             </li>
           </ul>
+
+         
         </div>
+        
 
         {userData?.token ? (
           <Link
@@ -99,6 +102,8 @@ export default function NavBar() {
               Log In
             </Link>
           </div>
+          
+          
         )}
       </div>
     </nav>
