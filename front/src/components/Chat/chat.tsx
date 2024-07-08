@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import { useState, useEffect, FormEvent } from 'react';
 import { Message } from '@/interface/chatInterface';
 import './chat.css'
-
+//chat
 const socket = io('http://localhost:3000');
 
 const Chat = () => {
